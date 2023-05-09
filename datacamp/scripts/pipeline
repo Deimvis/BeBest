@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+./r crawler post habr --output crawler_output --logs crawler_logs
+
+DEBUG=1 ./r canonizer post habr --input crawler_output --output canonizer_output --logs canonizer_logs
+
+DEBUG=1 ./r store post --input canonizer_output --output datacamp_post --logs datacamp__store_logs

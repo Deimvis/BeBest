@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center">Last Posts</h2>
+        <div class = "grid grid-cols-3 gap-3">
+            {% for post in posts %}
+                <div>
+                    <a href="#">
+                        <div>
+                            <div class="p-6 bg-white rounded-b-xl">
+                                <h2 class="text-2xl">{{ post.title }}</h2>
+                                <i>{{ post.description }}</i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

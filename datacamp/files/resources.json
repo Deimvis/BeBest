@@ -1,0 +1,12 @@
+[
+    {
+        "code": "POST",
+        "resource_name": "post",
+        "note": "Any uploaded data with corresponding professional information (article, paper, message, video, etc)"
+    },
+    {
+        "code": "VACANCY",
+        "resource_name": "vacancy",
+        "note": "Any uploaded data with requirements for employees"
+    }
+]
