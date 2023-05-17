@@ -6,10 +6,9 @@ COPY requirements.txt /requirements.txt
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 COPY bebest /bebest
+COPY scripts/entrypoint /entrypoint
 
 ENV PYTHONUNBUFFERED=1
-ENV FILES_DIR_PATH=/files/
 
-WORKDIR /bebest
-ENTRYPOINT [ "gunicorn", "bebest.wsgi:application" ]
+ENTRYPOINT ["/entrypoint"]
 CMD ["--bind", "0.0.0.0:8000"]

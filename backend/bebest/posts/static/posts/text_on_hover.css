@@ -1,0 +1,29 @@
+
+.has_text_on_hover span{
+    display: none;
+}
+
+.has_text_on_hover:hover span{
+    display:block;
+    position:absolute;
+    top:-60px;
+    width:15em;
+    border:5px solid #0cf;
+    background-color:#cff; color:#000;
+    text-align: center;
+    padding:10px;
+}
+
+.has_text_on_hover:hover span:after{
+    content:'';
+    position:absolute;
+    bottom:-11px;
+    width:10px;
+    height:10px;
+    border-bottom:5px solid #0cf;
+    border-right:5px solid #0cf;
+    background:#cff;
+    left:50%;
+    margin-left:-5px;
+    transform:rotate(45deg);
+}

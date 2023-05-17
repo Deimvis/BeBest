@@ -6,15 +6,19 @@ from src.canonizer import helpers
 from lib.sources import SourceName
 from lib.resources import ResourceName
 from src.canonizer.base import CanonizerBase
-from src.controller.posts.model import Post
+from src.controller.posts.model import RawPost, Post
 from src.crawler.posts.habr.models import Article
+from src.ranker import PostRanker
 from .topics import match_to_topics
-from .rank import calculate_rank
 
 
 class HabrPostsCanonizer(CanonizerBase):
     RESOURCE_NAME = ResourceName.POST
     SOURCE_NAME = SourceName.HABR
+
+    def __init__(self, *args, **kwargs):
+        self.post_ranker = PostRanker()
+        super().__init__(*args, **kwargs)
 
     def canonize(self, data: str) -> None:
         article = Article(**json.loads(data))
@@ -33,18 +37,19 @@ class HabrPostsCanonizer(CanonizerBase):
         publish_timestamp = self._canonize_datetime(article.publish_datetime)
         views = self._canonize_views(article.views)
         topics = match_to_topics(article)
-        rank = calculate_rank(article, views)
-        return Post(
+        raw_post = RawPost(
             canonized_url=canonized_url,
             original_url=article.url,
             title=article.title,
             topics=topics,
-            rank=rank,
             starting_text=article.starting_text,
             publish_timestamp=publish_timestamp,
             author_username=article.author_username,
             views=views,
         )
+        rank = self.post_ranker.raw_rank(raw_post, self.SOURCE_NAME)
+        post = Post(**(raw_post.dict() | dict(rank=rank)))
+        return post
 
     def _canonize_datetime(self, dt_str: str) -> int:
         return int(datetime.fromisoformat(dt_str).timestamp())

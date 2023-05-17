@@ -1,0 +1,1 @@
+from .canonizer import DCMPostsCanonizer  # noqa

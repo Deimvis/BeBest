@@ -14,5 +14,5 @@ COPY src /src
 ENV PYTHONUNBUFFERED=1
 ENV FILES_DIR_PATH=/files/
 
-ENTRYPOINT [ "/scripts/run" ]
-CMD ["crawler", "post", "habr", "--output", "crawler_output", "--logs", "crawler_logs"]
+ENTRYPOINT [ "/scripts/run_pipeline" ]
+CMD ["post", "habr"]

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -ex
+
+cd bebest
+python manage.py collectstatic --no-input
+gunicorn bebest.wsgi:application $@

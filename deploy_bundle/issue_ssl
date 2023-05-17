@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+
+sudo docker-compose -f /home/dbrusenin/bebest/docker-compose.yaml run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ -d bebest.pro

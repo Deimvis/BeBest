@@ -3,16 +3,17 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-
 class Post(models.Model):
     class SourceName(models.TextChoices):
         HABR = 'habr'
+        MEDIUM = 'medium'
+        DCM = 'distributed_computing_musings'
 
     canonized_url = models.CharField(max_length=2048, db_index=True)
     source_name = models.CharField(max_length=128, choices=SourceName.choices)
     original_url = models.CharField(max_length=2048)
     title = models.CharField(max_length=256)
-    topics = postgres_fields.ArrayField(models.CharField(max_length=256))
+    topics = postgres_fields.ArrayField(models.CharField(max_length=256), db_index=True)
     rank = models.BigIntegerField()
     starting_text = models.TextField()
     publish_timestamp = models.BigIntegerField()
@@ -37,3 +38,4 @@ class Post(models.Model):
             author_username='admin',
             views=0,
         )
+

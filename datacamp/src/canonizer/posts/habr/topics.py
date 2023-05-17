@@ -1,34 +1,26 @@
 from collections import defaultdict
 from typing import List
-from src.controller.posts.model import Topic
+from lib.specialities import Speciality
 from src.crawler.posts.habr.models import Article
 
 
 TOPIC2HUBS = {
-    Topic.DEVELOPMENT: {
-        'Программирование *',
+    Speciality.DEVELOPMENT.BACKEND: {
         'Python *',
-        'JavaScript *',
         'C *',
         'C# *',
         'C++ *',
         'Java *',
         'Go *',
+        'API *',
         'Django *',
         'Flask *',
         'Алгоритмы *',
         'Распределённые системы *',
+        'Распределённые системы *',
         'Промышленное программирование *',
     },
-    Topic.BACKEND: {
-        'Python *',
-        'Java *',
-        'Go *',
-        'Django *',
-        'Распределённые системы *',
-        'API *',
-    },
-    Topic.FRONTEND: {
+    Speciality.DEVELOPMENT.FRONTEND: {
         'JavaScript *',
         'ReactJS *',
         'Node.JS *',
@@ -37,7 +29,7 @@ TOPIC2HUBS = {
         'CSS *',
         'HTML *',
     },
-    Topic.MACHINE_LEARNING: {
+    Speciality.DEVELOPMENT.MACHINE_LEARNING: {
         'Машинное обучение *',
         'Искусственный интеллект ',
         'Natural Language Processing *',

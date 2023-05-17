@@ -20,7 +20,8 @@ class PostgresConsumer(ConsumerBase):
 
     def on_start(self):
         if self._truncate:
-            self.storage.truncate()
+            # TODO: add another param `drop`
+            self.storage.drop()
         if self.create_table_query is not None:
             self.storage.create(self.create_table_query)
         super().on_start()

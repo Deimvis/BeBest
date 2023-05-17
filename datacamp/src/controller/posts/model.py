@@ -1,27 +1,19 @@
 import validators
 from datetime import datetime
 from pydantic import BaseModel, validator
-from typing import Dict, List, Optional
-from lib.utils.enum import SimpleEnum
+from typing import Dict, List
+from lib.specialities import Speciality
 
 
-class Topic(SimpleEnum):
-    DEVELOPMENT = 'development'
-    BACKEND = 'backend'
-    FRONTEND = 'frontend'
-    MACHINE_LEARNING = 'machine_learning'
-
-
-class Post(BaseModel):
+class RawPost(BaseModel):
     canonized_url: str
     original_url: str
     title: str
     topics: List[str]
-    rank: int
     starting_text: str
     publish_timestamp: int
-    author_username: Optional[str]
-    views: Optional[int]
+    author_username: str | None
+    views: int | None
 
     @validator('canonized_url')
     def is_valid_canonized_url(cls, v):
@@ -36,17 +28,21 @@ class Post(BaseModel):
     @validator('topics')
     def are_topics_valid(cls, v):
         for topic in v:
-            assert topic in Topic.values(), 'Topic is not present in topic enum'
-        return v
-
-    @validator('rank')
-    def is_rank_valid(cls, v):
-        assert 0 <= v <= 100, 'Rank is not valid (out of range)'
+            assert topic in Speciality.DEVELOPMENT.values(), f'Topic is not present in Speciality enum (topic={topic})'
         return v
 
     @validator('publish_timestamp')
     def is_valid_date(cls, v):
         assert datetime(1900, 1, 1) <= datetime.utcfromtimestamp(v) <= datetime(2100, 1, 1), 'Publish timestamp has invalid value (out of range)'
+        return v
+
+
+class Post(RawPost):
+    rank: int
+
+    @validator('rank')
+    def is_rank_valid(cls, v):
+        assert v >= 0, 'Rank is not valid (out of range)'
         return v
 
 

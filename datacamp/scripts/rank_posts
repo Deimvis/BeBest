@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -e
+
+./scripts/run calc-features \
+--user-logs log_proxy_userlog \
+--storage datacamp__calc_features_output \
+--logs datacamp__calc_features_logs
+
+./scripts/run rank \
+--posts datacamp_post \
+--features datacamp__calc_features_output \
+--logs datacamp__rank_logs

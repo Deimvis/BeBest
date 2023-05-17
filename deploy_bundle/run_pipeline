@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+RESOURCE_NAME=$1
+SOURCE_NAME=$2
+
+sudo docker-compose -f /home/dbrusenin/bebest/docker-compose.yaml run --rm datacamp $RESOURCE_NAME $SOURCE_NAME

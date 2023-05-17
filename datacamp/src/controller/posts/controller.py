@@ -40,5 +40,6 @@ class PostsController(ControllerBase):
         self.storage.insert([post_record.dict()])
 
     def _merge(self, stored_post_record: PostRecord, new_post_record: PostRecord) -> None:
+        new_post_record.rank = max(new_post_record.rank, stored_post_record.rank)
         new_post_record.insert_timestamp = int(time.time())
         self.storage.update(set_=new_post_record.dict(), where=new_post_record.unique_key())

@@ -35,14 +35,14 @@ def parse_args():
     init_db.set_defaults(run=bin.run_init_db.run_init_db)
     init_db.add_argument('db_name', type=str)
 
-    crawler = subparsers.add_parser('crawler', parents=[common_parser])
+    crawler = subparsers.add_parser('crawl', parents=[common_parser])
     crawler.set_defaults(run=bin.run_crawler.run_crawler)
     crawler.add_argument('resource_name', choices=ResourceName.all(), help='Resource name')
     crawler.add_argument('source_name', choices=SourceName.all(), help='Source name')
     crawler.add_argument('--output', type=str, help='Postgres table name', required=True)
     crawler.add_argument('--logs', type=str, help='Postgres table name', required=True)
 
-    canonizer = subparsers.add_parser('canonizer', parents=[common_parser])
+    canonizer = subparsers.add_parser('canonize', parents=[common_parser])
     canonizer.set_defaults(run=bin.run_canonizer.run_canonizer)
     canonizer.add_argument('resource_name', choices=ResourceName.all(), help='Resource name')
     canonizer.add_argument('source_name', choices=SourceName.all(), help='Source name')
@@ -55,6 +55,18 @@ def parse_args():
     store.add_argument('resource_name', choices=ResourceName.all(), help='Resource name')
     store.add_argument('--input', type=str, help='Postgres table name', required=True)
     store.add_argument('--storage', type=str, help='Postgres table name', required=True)
+    store.add_argument('--logs', type=str, help='Postgres table name', required=True)
+
+    store = subparsers.add_parser('calc-features', parents=[common_parser])
+    store.set_defaults(run=bin.run_calc_features.run_calc_features)
+    store.add_argument('--user-logs', type=str, help='Postgres table name', required=True)
+    store.add_argument('--storage', type=str, help='Postgres table name', required=True)
+    store.add_argument('--logs', type=str, help='Postgres table name', required=True)
+
+    store = subparsers.add_parser('rank', parents=[common_parser])
+    store.set_defaults(run=bin.run_ranker.run_ranker)
+    store.add_argument('--posts', type=str, help='Postgres table name', required=True)
+    store.add_argument('--features', type=str, help='Postgres table name', required=True)
     store.add_argument('--logs', type=str, help='Postgres table name', required=True)
 
     return parser.parse_args()

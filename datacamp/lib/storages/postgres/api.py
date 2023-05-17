@@ -26,6 +26,10 @@ class PostgresAPI:
     def create_table(self, table_name: str, query: str) -> None:
         self.execute(query, (AsIs(table_name),))
 
+    @utils.logging.logging_on_call('Truncate table `{table_name}`', logging.DEBUG, logger=log_)
+    def truncate_table(self, table_name: str) -> None:
+        self.execute('TRUNCATE TABLE %s', (AsIs(table_name),))
+
     @utils.logging.logging_on_call('Drop table `{table_name}`', logging.DEBUG, logger=log_)
     def drop_table(self, table_name: str) -> None:
         self.execute('DROP TABLE IF EXISTS %s', (AsIs(table_name),))
@@ -33,7 +37,7 @@ class PostgresAPI:
     @utils.logging.logging_on_call('Table exists `{table_name}`', logging.DEBUG, logger=log_)
     def table_exists(self, table_name: str) -> bool:
         with self.connection.cursor() as cursor:
-            res1 = self.execute('SELECT EXISTS (SELECT FROM pg_tables WHERE schemaname = \'public\' AND tablename = %s)', (table_name,), cursor=cursor)
+            self.execute('SELECT EXISTS (SELECT FROM pg_tables WHERE schemaname = \'public\' AND tablename = %s)', (table_name,), cursor=cursor)
             return cursor.fetchone()[0]
 
     @utils.logging.logging_on_call('Select table `{table_name}`', logging.DEBUG, logger=log_)
@@ -49,7 +53,7 @@ class PostgresAPI:
             return cursor.fetchall()
 
     @utils.logging.logging_on_call('Exists `{table_name}` where {where}', logging.DEBUG, logger=log_)
-    def exists(self, table_name: str,   ) -> bool:
+    def exists(self, table_name: str, where: Dict) -> bool:
         # select exists(select 1 from contact where id=12)
         raise NotImplementedError()
 
@@ -74,6 +78,16 @@ class PostgresAPI:
         query = f'{query} {set_statement} {where_statement}'
         vars_ = vars_ + set_vars + where_vars
         self.execute(query, vars_)
+
+    @utils.logging.logging_on_call('Row count table `{table_name}`', logging.DEBUG, logger=log_)
+    def row_count(self, table_name: str) -> int:
+        with self.connection.cursor() as cursor:
+            self.execute('SELECT COUNT(*) FROM %s', (AsIs(table_name),), cursor=cursor)
+            return cursor.fetchone()[0]
+
+    @utils.logging.logging_on_call('Rename table `{table_name}`', logging.DEBUG, logger=log_)
+    def rename_table(self, table_name: str, dst_table_name: str) -> None:
+        self.execute('ALTER TABLE IF EXISTS %s RENAME TO %s', (AsIs(table_name), AsIs(dst_table_name),))
 
     @utils.logging.logging_on_call('Commit', logging.DEBUG, logger=log_)
     def commit(self) -> None:

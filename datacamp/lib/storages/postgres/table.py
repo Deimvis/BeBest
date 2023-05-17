@@ -1,5 +1,5 @@
 import psycopg2
-from typing import Dict, Sequence
+from typing import Any, Dict, List, Sequence
 
 from .api import PostgresAPI
 from lib.storages.base import StorageBase
@@ -17,7 +17,7 @@ class PostgresTable(StorageBase):
         return self.api.table_exists(self.table_name)
 
     def truncate(self) -> None:
-        self.api.drop_table(self.table_name)
+        self.api.truncate_table(self.table_name)
 
     def drop(self) -> None:
         self.api.drop_table(self.table_name)
@@ -25,7 +25,7 @@ class PostgresTable(StorageBase):
     def has(self, where: Dict = None) -> bool:
         return self.api.exists(self.table_name, where=where)
 
-    def select(self, where: Dict = None) -> bool:
+    def select(self, where: Dict = None) -> List[Any]:
         return self.api.select(self.table_name, where=where)
 
     def insert(self, rows: Sequence[Dict]) -> None:
@@ -33,6 +33,13 @@ class PostgresTable(StorageBase):
 
     def update(self, set_: Dict, where: Dict) -> None:
         self.api.update(self.table_name, set_=set_, where=where)
+
+    def row_count(self) -> int:
+        return self.api.row_count(self.table_name)
+
+    def move(self, dst_table_name: str) -> None:
+        self.api.drop_table(dst_table_name)
+        self.api.rename_table(self.table_name, dst_table_name)
 
     def commit(self) -> None:
         self.api.commit()

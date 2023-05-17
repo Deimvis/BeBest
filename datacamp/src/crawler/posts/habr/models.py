@@ -1,6 +1,5 @@
 import bs4
 import regex_spm
-from datetime import datetime
 from typing import Dict, List, Optional
 from pydantic import BaseModel
 

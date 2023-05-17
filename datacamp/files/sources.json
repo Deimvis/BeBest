@@ -3,5 +3,20 @@
         "code": "HABR",
         "source_name": "habr",
         "note": "https://habr.com/"
+    },
+    {
+        "code": "MEDIUM",
+        "source_name": "medium",
+        "note": "https://medium.com/"
+    },
+    {
+        "code": "DCM",
+        "source_name": "distributed_computing_musings",
+        "note": "https://distributed-computing-musings.com/"
+    },
+    {
+        "code": "HH_API",
+        "source_name": "hh_api",
+        "note": "https://api.hh.ru/"
     }
 ]

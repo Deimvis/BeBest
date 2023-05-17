@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -e
+
+RESOURCE_NAME=$1
+SOURCE_NAME=$2
+
+# crawl
+./scripts/run crawl $RESOURCE_NAME $SOURCE_NAME \
+--output "datacamp__crawl_${RESOURCE_NAME}_${SOURCE_NAME}_output" \
+--logs   "datacamp__crawl_${RESOURCE_NAME}_${SOURCE_NAME}_logs"
+
+# canonize
+./scripts/run canonize $RESOURCE_NAME $SOURCE_NAME \
+--input  "datacamp__crawl_${RESOURCE_NAME}_${SOURCE_NAME}_output" \
+--output "datacamp__canonize_${RESOURCE_NAME}_${SOURCE_NAME}_output" \
+--logs   "datacamp__canonize_${RESOURCE_NAME}_${SOURCE_NAME}_logs"
+
+# store
+./scripts/run store $RESOURCE_NAME \
+--input  "datacamp__canonize_${RESOURCE_NAME}_${SOURCE_NAME}_output" \
+--storage datacamp_post \
+--logs    datacamp__store_${RESOURCE_NAME}_${SOURCE_NAME}_logs

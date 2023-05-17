@@ -1,5 +1,6 @@
 __pycache__/
 venv/
+backend/static/
 
 .env
 .DS_Store

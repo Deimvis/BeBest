@@ -1,3 +1,5 @@
+{% load static %}
+{% load utils %}
 <!doctype html>
 
 <html lang="en-us">
@@ -6,37 +8,41 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'core/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'core/underline.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'core/wave_background.css' %}">
+        {% block links %}
+        {% endblock %}
 
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
         <div class="flex flex-col">
-        <div class="h-screen">
-        <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
-            <a href="/" class="text-xl font-semibold">
-                <span class="text-transparent bg-clip-text bg-gradient-to-t to-orange-400 from-red-400">
+        <nav class="py-6 px-6 flex flex-wrap gap-4 justify-between items-center border-b border-gray-200">
+            <a href="/" class="text-2xl font-semibold">
+                <span class="hover-underline-animation text-transparent bg-clip-text bg-gradient-to-t to-orange-400 from-red-400">
                     Be the Best
                 </span>
             </a>
-            <div class="space-x-6">
-                <a href="#" class="text-lg font-semibold hover:text-gray-500">Frontend</a>
-                <a href="#" class="text-lg font-semibold hover:text-gray-500">Backend</a>
-                <a href="#" class="text-lg font-semibold hover:text-gray-500">ML</a>
-                <a href="#" class="text-lg font-semibold hover:text-gray-500">Vacancies</a>
+            <div class="space-x-4 sm:space-x-4 lg:space-x-6 text-md sm:text-md lg:text-lg">
+
+                <a href="{% url 'posts:index' %}?speciality=frontend" class="font-semibold hover:text-gray-500 {% if speciality == 'frontend' %}underline underline-offset-2{% endif %}">Frontend</a>
+                <a href="{% url 'posts:index' %}?speciality=backend" class="font-semibold hover:text-gray-500 {% if speciality == 'backend' %}underline underline-offset-2{% endif %}">Backend</a>
+                <a href="{% url 'posts:index' %}?speciality=machine_learning" class="font-semibold hover:text-gray-500 {% if speciality == 'machine_learning' %}underline underline-offset-2{% endif %}">ML</a>
+                <a href="#" class="font-semibold hover:text-gray-500">Vacancies</a>
 
                 {% if request.user.is_authenticated %}
                 {% else %}
-                    <a href="{% url 'core:signup' %}" class="px-6 py-3 text-lg font-semibold bg-amber-300 text-white rounded-xl hover:bg-yellow-700">Sign up</a>
-                    <a href="{% url 'core:login' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Log in</a>
+                    <a href="{% url 'core:signup' %}{% if not request.path|startswith:'/signup' %}?next={{ request.get_full_path|urlencode }}{% elif request.GET.next is not None %}?next={{ request.GET.next }}{% endif %}" class="px-6 py-3 font-semibold bg-amber-300 text-white rounded-xl hover:bg-yellow-500 whitespace-nowrap">Sign up</a>
+                    <a href="{% url 'core:login' %}{% if not request.path|startswith:'/login' %}?next={{ request.get_full_path|urlencode }}{% elif request.GET.next is not None %}?next={{ request.GET.next }}{% endif %}" class="px-6 py-3 font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700 whitespace-nowrap">Log in</a>
                 {% endif %}
             </div>
         </nav>
-        <div class="px-6 py-6 flex flex-col h-screen">
+        <div class="px-6 py-6 flex flex-col">
             {% block content %}
             {% endblock %}
         </div>
-        </div>
-        <footer id="footer" class="py-6 px-6 flex justify-between bg-gray-800">
+        <footer class="py-6 px-6 flex justify-between bg-gray-800">
             <div class="w-2/3 pr-10">
                 <h3 class="mb-5 font-semibold text-gray-400">About</h3>
                 <div class="w-1/3">

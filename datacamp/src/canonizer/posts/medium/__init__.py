@@ -1,0 +1,1 @@
+from .canonizer import MediumPostsCanonizer  # noqa
