@@ -1,0 +1,77 @@
+{% extends 'core/base.html' %}
+
+{% block title %}BeBest - {{ beautiful_speciality }}{% endblock %}
+
+{% block links %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap&family=Crimson+Text:wght@600&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen {% if request.GET.box_animation %}fade_appear{% endif %}">
+    <div class="mt-6 px-6 py-8 bg-slate-50 rounded-xl border-2 border-rose-600/50">
+        <div class="mb-10 lg:mb-15 mx-auto" style="height:fit-content; width:fit-content">
+            <h1 class="flex justify-center mb-4">
+                <a href="{% url 'vacancies:index' %}" class="text-center text-4xl lg:text-5xl font-extrabold leading-none tracking-wide text-transparent bg-clip-text bg-gradient-to-r to-amber-300 from-red-300 hover:underline decoration-red-400/50 underline-offset-2 shadow-none transition-shadow duration-100 ease-in-out hover:shadow-lg hover:shadow-black/5">
+                    Vacancy Statistics
+                </a>
+            </h1>
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="m-4 relative inline-block w-64">
+                    <label class="inline-block mb-2 text-lg">Speciality</label><br>
+                    {{ form.speciality }}
+                </div>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                </div>
+                <div class="m-4 relative inline-block w-64">
+                    <label class="inline-block mb-2 text-lg">Location</label><br>
+                    {{ form.location }}
+                </div>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                </div>
+
+                <!-- # NOTE: tags are not supported yet -->
+                <!-- <div class="m-4 relative inline-block w-64">
+                    <label class="inline-block mb-2">Tags</label><br>
+                    {{ form.tags }}
+                </div>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                </div> -->
+
+                <button class="px-4 py-2 text-lg font-semibold text-black rounded-xl border border-gray-300 shadow-none transition-shadow duration-100 ease-in-out hover:shadow-md hover:border-gray-600">Check</button>
+            </form>
+        </div>
+
+        {% if stats %}
+        <div class="fade_appear">
+            <div class="mb-4 flex justify-center space-x-4 ">
+                <div class="w-1/3 text-center">
+                    <div class="w-1/3 float-right">
+                    <p class="text-2xl lg:text-3xl font-sans font-extrabold text-stone-600">Min</p>
+                    <span style="font-family: 'Crimson Text', serif;">
+                        <span class="text-3xl">{{ stats.avg_from }} &#8381;</span>
+                        <!-- <span class="text-md">/month</span> -->
+                    </span>
+                    </div>
+                </div>
+                <div class="w-1/3 text-center">
+                    <p class="text-2xl lg:text-3xl font-sans font-extrabold text-stone-600">Avg</p>
+                    <span class="text-3xl" style="font-family: 'Crimson Text', serif;">{{ stats.avg_middle }} &#8381;</span>
+                </div>
+                <div class="w-1/3 text-center">
+                    <div class="w-1/3 float-left">
+                    <p class="text-2xl lg:text-3xl font-sans font-extrabold text-stone-600">Max</p>
+                    <span class="text-3xl" style="font-family: 'Crimson Text', serif;">{{ stats.avg_to }} &#8381;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

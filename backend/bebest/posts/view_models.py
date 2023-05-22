@@ -32,7 +32,6 @@ class PostView:
         title = post.title.capitalize()
         if len(title) > 100:
             title = title[:97] + '...'
-            print(title)
         return PostView(
             canonized_url=post.canonized_url,
             source_name=post.source_name,

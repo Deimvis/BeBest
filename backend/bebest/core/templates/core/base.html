@@ -11,8 +11,29 @@
         <link rel="stylesheet" type="text/css" href="{% static 'core/style.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'core/underline.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'core/wave_background.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'core/get_started_button.css' %}">
         {% block links %}
         {% endblock %}
+
+        <style>
+            @keyframes fade_animation {
+                0% {
+                    opacity: 0;
+                }
+
+                100% {
+                    opacity: 1;
+                }
+            }
+
+            .fade_appear {
+                animation: fade_animation 0.5s ease-out;
+            }
+
+            .slow_fade_appear {
+                animation: fade_animation 0.8s ease-out;
+            }
+        </style>
 
         <title>{% block title %}{% endblock %}</title>
     </head>
@@ -26,10 +47,10 @@
             </a>
             <div class="space-x-4 sm:space-x-4 lg:space-x-6 text-md sm:text-md lg:text-lg">
 
-                <a href="{% url 'posts:index' %}?speciality=frontend" class="font-semibold hover:text-gray-500 {% if speciality == 'frontend' %}underline underline-offset-2{% endif %}">Frontend</a>
-                <a href="{% url 'posts:index' %}?speciality=backend" class="font-semibold hover:text-gray-500 {% if speciality == 'backend' %}underline underline-offset-2{% endif %}">Backend</a>
-                <a href="{% url 'posts:index' %}?speciality=machine_learning" class="font-semibold hover:text-gray-500 {% if speciality == 'machine_learning' %}underline underline-offset-2{% endif %}">ML</a>
-                <a href="#" class="font-semibold hover:text-gray-500">Vacancies</a>
+                <a href="{% url 'posts:index' %}?speciality=frontend&box_animation=true" class="font-semibold hover:text-gray-500 {% if speciality == 'frontend' %}underline underline-offset-2{% endif %}">Frontend</a>
+                <a href="{% url 'posts:index' %}?speciality=backend&box_animation=true" class="font-semibold hover:text-gray-500 {% if speciality == 'backend' %}underline underline-offset-2{% endif %}">Backend</a>
+                <a href="{% url 'posts:index' %}?speciality=machine_learning&box_animation=true" class="font-semibold hover:text-gray-500 {% if speciality == 'machine_learning' %}underline underline-offset-2{% endif %}">ML</a>
+                <a href="{% url 'vacancies:index' %}?box_animation=true" class="font-semibold hover:text-gray-500">Vacancies</a>
 
                 {% if request.user.is_authenticated %}
                 {% else %}

@@ -69,6 +69,12 @@ def parse_args():
     store.add_argument('--features', type=str, help='Postgres table name', required=True)
     store.add_argument('--logs', type=str, help='Postgres table name', required=True)
 
+    store = subparsers.add_parser('calc-stats', parents=[common_parser])
+    store.set_defaults(run=bin.run_calc_stats.run_calc_stats)
+    store.add_argument('--vacancies', type=str, help='Postgres table name', required=True)
+    store.add_argument('--storage', type=str, help='Postgres table name', required=True)
+    store.add_argument('--logs', type=str, help='Postgres table name', required=True)
+
     return parser.parse_args()
 
 

@@ -6,6 +6,7 @@ COPY requirements.txt /requirements.txt
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 COPY bebest /bebest
+COPY scripts /scripts
 COPY scripts/entrypoint /entrypoint
 
 ENV PYTHONUNBUFFERED=1

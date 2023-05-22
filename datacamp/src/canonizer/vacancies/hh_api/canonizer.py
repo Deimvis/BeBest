@@ -40,6 +40,7 @@ class HHAPIPostsCanonizer(CanonizerBase):
         salary = crawled_vacancy.salary
         requirements = crawled_vacancy.snippet.requirement
         speciality = crawled_vacancy.speciality
+        tags = crawled_vacancy.tags
         publish_timestamp = self._canonize_timestamp(crawled_vacancy.published_at)
         vacancy = Vacancy(
             canonized_url=canonized_url,
@@ -50,6 +51,7 @@ class HHAPIPostsCanonizer(CanonizerBase):
             salary=salary,
             requirements=requirements,
             speciality=speciality,
+            tags=tags,
             publish_timestamp=publish_timestamp,
         )
         self.write_output(vacancy.table_record())

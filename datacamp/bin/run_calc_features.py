@@ -5,7 +5,7 @@ from lib.consumers import PostgresConsumer
 from lib.storages.postgres.table import PostgresTable
 
 
-class ControllerLogsConsumer(PostgresConsumer):
+class FeaturesCalculatorLogsConsumer(PostgresConsumer):
 
     @property
     def create_table_query(self):

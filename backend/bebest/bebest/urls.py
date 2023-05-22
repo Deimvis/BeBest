@@ -23,6 +23,7 @@ from django.urls import include, path
 urlpatterns = [
     path('', include('core.urls', namespace='core')),
     path('posts/', include('posts.urls', namespace='posts')),
+    path('vacancies/', include('vacancies.urls', namespace='vacancies')),
     path('export/', include('export.urls', namespace='export')),
     path('proxy/', include('log_proxy.urls', namespace='log_proxy')),
     path('admin/', admin.site.urls),

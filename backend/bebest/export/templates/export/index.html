@@ -1,0 +1,19 @@
+<title>Index</title>
+
+
+<form action="/export/posts" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Export posts">
+</form>
+
+<form action="/export/vacancy_stats" method="post" style="display: inline-block;">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Export vacancy stats">
+</form>
+
+
+{% for log in logs %}
+    <p>{{ log }}</p>
+{% endfor %}

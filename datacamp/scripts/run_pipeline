@@ -19,5 +19,5 @@ SOURCE_NAME=$2
 # store
 ./scripts/run store $RESOURCE_NAME \
 --input  "datacamp__canonize_${RESOURCE_NAME}_${SOURCE_NAME}_output" \
---storage datacamp_post \
+--storage datacamp_${RESOURCE_NAME} \
 --logs    datacamp__store_${RESOURCE_NAME}_${SOURCE_NAME}_logs

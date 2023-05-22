@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from .models import Post
 from .view_models import PostView
+from urllib.parse import urlparse, urlunparse
 
 from django.forms.models import model_to_dict
 
@@ -17,10 +18,12 @@ def index(request):
     posts_sample = _extract_posts_sample(db_speciality)
     view_posts_sample = [PostView.from_post(post) for post in posts_sample]
     beautiful_speciality = _beautify_speciality(db_speciality)
+    refresh_url = _build_refresh_url(request)
     ctx = {
         'speciality': speciality,
         'beautiful_speciality': beautiful_speciality,
-        'posts': view_posts_sample
+        'posts': view_posts_sample,
+        'refresh_url': refresh_url,
     }
     return render(request, 'posts/index.html', ctx)
 
@@ -54,3 +57,9 @@ def _beautify_speciality(speciality: str):
             return 'Machine Learning'
         case _:
             raise RuntimeError(f'Got unsupported speciality: {speciality}')
+
+def _build_refresh_url(request) -> str:
+    refresh_params = request.GET.dict()
+    refresh_params.pop('box_animation', None)
+    refresh_params_str = '&'.join([f'{k}={v}' for k, v in refresh_params.items()])
+    return reverse('posts:index') + '?' + refresh_params_str

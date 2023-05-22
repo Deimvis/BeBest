@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'export.apps.ExportConfig',
     'log_proxy.apps.LogProxyConfig',
     'posts.apps.PostsConfig',
+    'vacancies.apps.VacanciesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -131,3 +132,9 @@ STATIC_ROOT = BASE_DIR.parent / 'static'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://bebest.pro',
+    'https://www.bebest.pro',
+]

@@ -25,6 +25,7 @@ class Vacancy(BaseModel):
     salary: Salary | None
     requirements: str | None
     speciality: str
+    tags: List[str]
     publish_timestamp: int
 
     @validator('canonized_url')
@@ -87,6 +88,7 @@ class VacancyRecord(Vacancy):
                 salary            JSON,
                 requirements      TEXT,
                 speciality        VARCHAR(256) NOT NULL,
+                tags              VARCHAR(256)[] NOT NULL check (array_position(tags, null) is null),
                 publish_timestamp BIGINT NOT NULL
             )
         """

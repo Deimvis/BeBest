@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -e
+
+./scripts/run calc-stats \
+--vacancies datacamp_vacancy \
+--storage datacamp_vacancy_stats \
+--logs datacamp__calc_stats_logs

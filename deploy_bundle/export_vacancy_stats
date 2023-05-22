@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+
+sudo docker-compose -f /home/dbrusenin/bebest/docker-compose.yaml run --entrypoint /scripts/export_vacancy_stats backend

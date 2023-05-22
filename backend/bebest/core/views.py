@@ -16,18 +16,15 @@ def contact(request):
 
 
 def signup(request):
-    if request.method == 'POST':
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            form.save()
-            new_user = auth.authenticate(username=form.cleaned_data['username'],
-                                    password=form.cleaned_data['password1'])
-            auth.login(request, new_user)
-            if 'next' in request.POST:
-                return redirect(request.POST.get('next'))
-            return redirect('/')
-    else:
-        form = SignupForm()
+    form = SignupForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        new_user = auth.authenticate(username=form.cleaned_data['username'],
+                                password=form.cleaned_data['password1'])
+        auth.login(request, new_user)
+        if 'next' in request.POST:
+            return redirect(request.POST.get('next'))
+        return redirect('/')
 
     return render(request, 'core/signup.html', dict(form=form, query_string=request.META['QUERY_STRING']))
 
