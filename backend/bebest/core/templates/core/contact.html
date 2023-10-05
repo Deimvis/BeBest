@@ -1,7 +1,25 @@
 {% extends 'core/base.html' %}
+{% load static %}
 
-{% block title %}Contact{% endblock %}
+{% block title %}BeBest — Contact{% endblock %}
 
 {% block content %}
-    <h1>My contancts: xxx</h1>
+<div class="min-h-screen">
+    <div class="text-4xl md:text-5xl lg:text-6xl mt-40 flex justify-center">
+        <a href="https://github.com/Deimvis" target="_blank">
+            <img src="{% static 'core/github_logo.png' %}" width="320" alt="GitHub">
+        </a>
+    </div>
+    <!-- <div class="text-3xl md:text-4xl lg:text-5xl mt-2 flex justify-center">
+        <a href="https://github.com/Deimvis" target="_blank" class="text-blue-600 dark:text-blue-500 hover:underline decoration-3">Deimvis</a>
+    </div> -->
+    <div class="text-4xl md:text-5xl lg:text-6xl ml-2 mt-20 flex justify-center">
+        <a href="https://www.linkedin.com/in/dmitriy-brusenin-637715225/" target="_blank">
+            <img src="{% static 'core/linkedin_logo.png' %}" width="320" alt="GitHub">
+        </a>
+    </div>
+    <!-- <div class="text-3xl md:text-4xl lg:text-5xl mt-4 flex justify-center">
+        <a href="https://www.linkedin.com/in/dmitriy-brusenin-637715225/" target="_blank" class="text-blue-600 dark:text-blue-500 hover:underline decoration-3">Dmitriy Brusenin</a>
+    </div> -->
+</div>
 {% endblock %}

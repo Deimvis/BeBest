@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'core.middleware.TrailingSlashMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -138,3 +139,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://bebest.pro',
     'https://www.bebest.pro',
 ]
+
+# Urls
+
+APPEND_SLASH = True

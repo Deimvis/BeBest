@@ -2,7 +2,6 @@ import os
 from bin.postgres import PostgresConnection, create_database
 
 
-
 def run_init_db(args):
     with PostgresConnection(
                 host=os.getenv('DB_HOST'),

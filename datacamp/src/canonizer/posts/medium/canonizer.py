@@ -42,7 +42,6 @@ class MediumPostsCanonizer(CanonizerBase):
             original_url=article.url,
             title=article.title,
             topics=topics,
-            rank=rank,
             starting_text='',
             publish_timestamp=publish_timestamp,
             author_username=article.publisher,

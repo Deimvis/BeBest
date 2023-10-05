@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}404{% endblock %}
+
+{% block links %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen">
+    <div class="mt-10 flex justify-center">
+        <img src="{% static 'core/404.gif' %}" width="640", height="346", alt="404">
+    </div>
+    <div class="mt-4 flex justify-center">
+        <p class="text-8xl" style="font-family: 'Bungee Shade', cursive;">404</p>
+    </div>
+</div>
+{% endblock %}
+

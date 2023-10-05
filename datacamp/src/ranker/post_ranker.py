@@ -16,7 +16,8 @@ class PostRanker:
         initial_rank = 0
         match source_name:
             case SourceName.HABR:
-                initial_rank = 300
+                # boost for diversity
+                initial_rank = 100
             case SourceName.MEDIUM:
                 # initial_rank = 500
                 # boost for diversity

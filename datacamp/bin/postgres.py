@@ -1,7 +1,7 @@
 import logging
 import psycopg2
 from psycopg2.extensions import AsIs
-from lib.utils.temporary import temporary_set_attr
+from lib.utils.temporary import temp_setattr
 
 
 class PostgresConnection:
@@ -38,7 +38,7 @@ def create_database(conn: psycopg2.extensions.connection, db_name: str):
             LC_CTYPE='C'
             TEMPLATE template0
     """
-    with temporary_set_attr(conn, 'autocommit', True):
+    with temp_setattr(conn, 'autocommit', True):
         with conn.cursor() as cursor:
             try:
                 cursor.execute(query, (AsIs(db_name),))

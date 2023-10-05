@@ -21,7 +21,7 @@ class MediumPostCrawler(CrawlerBase):
     SOURCE_NAME = SourceName.MEDIUM
 
     def __init__(self, *args, **kwargs):
-        self.requester = lib.requesters.DefaultRequester()
+        self.requester = lib.requesters.DefaultRequester(max_rps=1)
         super().__init__(*args, **kwargs)
 
     def crawl(self) -> None:

@@ -1,5 +1,4 @@
 import bs4
-import regex_spm
 from typing import Dict, List, Optional
 from pydantic import BaseModel
 
@@ -40,9 +39,8 @@ class Article(BaseModel):
         hubs = []
         info_tags = tag.select_one('[class="tm-article-snippet__hubs"]').select('a')
         for info_tag in info_tags:
-            match regex_spm.fullmatch_in(info_tag['href']):
-                case r'.*\/hub\/.*':
-                    hubs.append(info_tag.text)
+            if '/hubs/' in info_tag['href']:
+                hubs.append(info_tag.text)
 
         tags = []
         lists = tag.select_one('[class="tm-article-presenter__meta"]').select('[class^="tm-separated-list "]')

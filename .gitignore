@@ -4,4 +4,5 @@ backend/static/
 
 .env
 .DS_Store
+.todo 
 r

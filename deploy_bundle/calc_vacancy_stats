@@ -2,4 +2,4 @@
 
 set -e
 
-sudo docker-compose -f /home/dbrusenin/bebest/docker-compose.yaml run --entrypoint /scripts/calc_vacancy_stats datacamp
+sudo docker-compose -f /home/dbrusenin/bebest/docker-compose.yaml run --rm --entrypoint /scripts/calc_vacancy_stats datacamp

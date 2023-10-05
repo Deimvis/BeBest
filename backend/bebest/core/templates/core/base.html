@@ -1,6 +1,6 @@
 {% load static %}
 {% load utils %}
-<!doctype html>
+<!DOCTYPE html>
 
 <html lang="en-us">
     <head>
@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'core/style.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'core/style.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'core/underline.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'core/wave_background.css' %}">
@@ -36,6 +37,7 @@
         </style>
 
         <title>{% block title %}{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{% static 'core/favicon.ico' %}">
     </head>
     <body>
         <div class="flex flex-col">

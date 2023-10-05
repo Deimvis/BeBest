@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+
+"""
+Assumes running without nginx over it (used for debug).
+Uses --insecure to serve static
+"""
+
+import logging
+import os
+import subprocess as sp
+
+
+if os.getenv('DEBUG'):
+    logging.warning('DEBUG mode is ON! (Pages like 404.html might not be available)')
+
+
+sp.run(['bebest/manage.py', 'runserver', '--insecure'])

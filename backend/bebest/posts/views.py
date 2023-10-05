@@ -36,10 +36,6 @@ def detail(request, post_id, beautify=True):
     return JsonResponse(model_to_dict(post), json_dumps_params=json_dumps_params)
 
 
-def handling_404(request, exception):
-    return HttpResponse('So sad, but it\'s a 404 :(')
-
-
 def _extract_posts_sample(speciality: str):
     most_ranked_posts = list(Post.objects.filter(topics__contains=[speciality]).order_by('-rank')[:100])
     random.shuffle(most_ranked_posts)

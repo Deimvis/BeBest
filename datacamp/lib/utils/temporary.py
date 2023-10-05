@@ -2,7 +2,7 @@ import contextlib
 
 
 @contextlib.contextmanager
-def temporary_set_attr(obj, name, value):
+def temp_setattr(obj, name, value):
     backup_value = None
     if hasattr(obj, name):
         backup_value = getattr(obj, name)

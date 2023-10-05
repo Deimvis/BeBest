@@ -1,3 +1,5 @@
+import logging
+import traceback
 import django.contrib.auth as auth
 from django.contrib import messages
 from django.shortcuts import render, redirect
@@ -52,3 +54,8 @@ def logout(request):
     if request.method == 'GET' and 'next' in request.GET:
         return redirect(request.GET.get('next'))
     return redirect('/')
+
+
+def handler404(request, exception):
+    logging.error(f'404 on {request.build_absolute_uri()}. Error: {exception}')
+    return render(request, 'core/404.html', {})

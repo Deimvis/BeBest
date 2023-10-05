@@ -48,6 +48,12 @@ def main():
         match_result = re.fullmatch(r'^(?P<package_name>^.+?)(?=(=|~|>)=).+\s?$', package)
         assert match_result is not None, 'Couldn\'t parse package string from requirements.txt'
         package_names.add(match_result.group('package_name'))
+    # TODO: gather current packages using pip freeze, because names might differ
+    # TODO: new algorithm:
+    # 1) for each new package check if it's already installed using `pip show`
+    # 2) for each truly new package create string representing line for requirements.txt (using `pip show`?)
+    # 3) gather all curent lines and new lines of requirements.txt, sort them alphabetically and update requirements.txt
+    # TODO: add support of specifying path to requirements.txt (add flag --dev for requirements-dev.txt)
     for new_package_name in args.packages:
         if new_package_name in package_names:
             logging.warning(f'Package is already installed ({new_package_name})')
