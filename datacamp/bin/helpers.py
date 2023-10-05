@@ -1,4 +1,4 @@
-from lib.resources import ResourceName
+from src.types.resources import ResourceName
 from src.controller.posts.model import PostRecord
 from src.controller.vacancies.model import VacancyRecord
 

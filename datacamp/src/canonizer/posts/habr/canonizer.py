@@ -3,8 +3,8 @@ import traceback
 from datetime import datetime
 from src.canonizer import helpers
 
-from lib.sources import SourceName
-from lib.resources import ResourceName
+from src.types.sources import SourceName
+from src.types.resources import ResourceName
 from src.canonizer.base import CanonizerBase
 from src.controller.posts.model import RawPost, Post
 from src.crawler.posts.habr.models import Article

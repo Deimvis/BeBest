@@ -1,4 +1,4 @@
-from lib.specialities import Speciality
+from src.types.specialities import Speciality
 
 # MAGIC
 MOSCOW_AREA_ID = '1'

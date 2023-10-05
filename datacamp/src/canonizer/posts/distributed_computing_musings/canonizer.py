@@ -5,9 +5,9 @@ import regex_spm
 from datetime import datetime
 from src.canonizer import helpers
 
-from lib.sources import SourceName
-from lib.resources import ResourceName
-from lib.specialities import Speciality
+from src.types.sources import SourceName
+from src.types.resources import ResourceName
+from src.types.specialities import Speciality
 from src.canonizer.base import CanonizerBase
 from src.controller.posts.model import RawPost, Post
 from src.crawler.posts.distributed_computing_musings.models import Article

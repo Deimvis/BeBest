@@ -2,7 +2,7 @@ import validators
 from datetime import datetime
 from pydantic import BaseModel, validator
 from typing import Dict, List
-from lib.specialities import Speciality
+from src.types.specialities import Speciality
 
 
 class RawPost(BaseModel):

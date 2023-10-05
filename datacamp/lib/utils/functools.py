@@ -6,6 +6,15 @@ class MaxRetriesReachedError(Exception):
     pass
 
 
+def apply(*nargs):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            return func(*nargs, *args, **kwargs)
+        return wrapper
+    return decorator
+
+
 def try_while(*, while_=lambda: False, sleep_time_s=60, max_retries=120, max_retries_error_msg=''):
     def decorator(func):
         def wrapper(*args, **kwargs):

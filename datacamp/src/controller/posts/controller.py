@@ -3,7 +3,7 @@ import time
 import traceback
 from typing import Dict
 
-from lib.resources import ResourceName
+from src.types.resources import ResourceName
 from src.controller.base import ControllerBase
 from src.controller.posts.model import PostRecord
 

@@ -2,7 +2,7 @@ import math
 import random
 import time
 from typing import Dict
-from lib.sources import SourceName
+from src.types.sources import SourceName
 from src.controller.posts.model import Post, PostRecord
 
 

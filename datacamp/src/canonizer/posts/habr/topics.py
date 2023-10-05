@@ -1,6 +1,6 @@
 from collections import defaultdict
 from typing import List
-from lib.specialities import Speciality
+from src.types.specialities import Speciality
 from src.crawler.posts.habr.models import Article
 
 

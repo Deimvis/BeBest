@@ -3,7 +3,7 @@ import validators
 from datetime import datetime
 from typing import Any, Dict, List
 from pydantic import BaseModel, Field, validator
-from lib.specialities import Speciality
+from src.types.specialities import Speciality
 
 
 class Salary(BaseModel):

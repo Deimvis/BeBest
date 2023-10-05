@@ -4,8 +4,8 @@ import os
 
 import bin
 import lib
-from lib.resources import ResourceName
-from lib.sources import SourceName
+from src.types.resources import ResourceName
+from src.types.sources import SourceName
 
 
 if os.getenv('DEBUG'):
@@ -81,8 +81,8 @@ def parse_args():
 def playground():
     from bin.postgres import PostgresConnection
     from lib.consumers import FileConsumer
-    from lib.resources import ResourceName
-    from lib.sources import SourceName
+    from src.types.resources import ResourceName
+    from src.types.sources import SourceName
     from src.crawler import crawlers_manager
 
     with PostgresConnection(

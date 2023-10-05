@@ -1,8 +1,8 @@
 import psycopg2
-from typing import Iterable, Tuple
+from typing import Sequence, Tuple
 
 
-def insert_many(cursor: psycopg2.extensions.cursor, table_name: str, rows: Iterable[Tuple], columns: Iterable[str] = None) -> bool:
+def insert_many(cursor: psycopg2.extensions.cursor, table_name: str, rows: Sequence[Tuple], columns: Sequence[str] = None) -> bool:
     if len(rows) == 0:
         return False
     values_format = '(' + ','.join(['%s' for _ in range(len(rows[0]))]) + ')'
@@ -15,3 +15,4 @@ def insert_many(cursor: psycopg2.extensions.cursor, table_name: str, rows: Itera
         values_str,
     ])
     cursor.execute(query)
+    return True

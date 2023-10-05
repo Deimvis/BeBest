@@ -8,8 +8,8 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlparse, urlunsplit
 
 import lib
-from lib.sources import SourceName
-from lib.resources import ResourceName
+from src.types.sources import SourceName
+from src.types.resources import ResourceName
 from src.crawler.base import CrawlerBase
 from .magic import BLOGS_TO_CRAWL
 from .models import Article

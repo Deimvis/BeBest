@@ -5,8 +5,8 @@ from tqdm import tqdm
 from bs4 import BeautifulSoup
 
 import lib
-from lib.sources import SourceName
-from lib.resources import ResourceName
+from src.types.sources import SourceName
+from src.types.resources import ResourceName
 from src.crawler.base import CrawlerBase
 from .models import Article
 from .parser import Parser
