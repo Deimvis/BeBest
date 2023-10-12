@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+
+TARGET_HOST=${1:-ya_cloud_bebest}
+REMOTE_WORKDIR=${2:-/home/dbrusenin/bebest}
+
+REQUIRED_FILES=( ".env.prod" "datacamp/.env.prod" "backend/.env.prod" )
+for $file in "${REQUIRED_FILES[@]}"
+do
+    if [ ! -f $file ]; then
+        echo "Required file $file doesn't exist"
+        exit 1
+    fi
+done
+
+set -x
+
+scp .env.prod          $TARGET_HOST:~/bebest/.env.prod
+scp datacamp/.env.prod $TARGET_HOST:~/bebest/.env.prod.datacamp
+scp backend/.env.prod  $TARGET_HOST:~/bebest/.env.prod.backend

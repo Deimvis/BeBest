@@ -9,8 +9,8 @@ docker-compose -f docker-compose.prod.yaml build
 docker-compose -f docker-compose.prod.yaml push
 
 ./scripts/make_deploy_docker_compose docker-compose.prod.yaml deploy_bundle/docker-compose.yaml
-
-scp -r deploy_bundle/* ya_cloud_bebest:~/bebest
+scp -r deploy_bundle/* $TARGET_HOST:~/bebest
+rm deploy_bundle/docker-compose.yaml
 
 ssh $TARGET_HOST "$REMOTE_WORKDIR/pull"
 ssh $TARGET_HOST "$REMOTE_WORKDIR/down"

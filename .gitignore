@@ -2,7 +2,8 @@ __pycache__/
 venv/
 backend/static/
 
-.env
+.env*
+!.env.template
 .DS_Store
-.todo 
+.todo
 r
