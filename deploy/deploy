@@ -4,13 +4,14 @@ set -ex
 
 TARGET_HOST=${1:-ya_cloud_bebest}
 REMOTE_WORKDIR=${2:-/home/dbrusenin/bebest}
+DEPLOY_BUNDLE_DIR=${3:-./deploy/bundle}
 
 docker-compose -f docker-compose.prod.yaml build
 docker-compose -f docker-compose.prod.yaml push
 
-./scripts/make_deploy_docker_compose docker-compose.prod.yaml deploy_bundle/docker-compose.yaml
-scp -r deploy_bundle/* $TARGET_HOST:~/bebest
-rm deploy_bundle/docker-compose.yaml
+./deploy/make_deploy_docker_compose docker-compose.prod.yaml $DEPLOY_BUNDLE_DIR/docker-compose.yaml
+scp -r $DEPLOY_BUNDLE_DIR/* $TARGET_HOST:~/bebest
+rm $DEPLOY_BUNDLE_DIR/docker-compose.yaml
 
 ssh $TARGET_HOST "$REMOTE_WORKDIR/pull"
 ssh $TARGET_HOST "$REMOTE_WORKDIR/down"
