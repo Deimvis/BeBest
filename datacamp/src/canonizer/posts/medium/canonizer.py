@@ -6,10 +6,10 @@ from datetime import datetime
 from src.canonizer import helpers
 
 from src.types.sources import SourceName
-from src.types.resources import ResourceName
+from src.types import ResourceName
 from src.canonizer.base import CanonizerBase
 from src.controller.posts.model import RawPost, Post
-from src.crawler.posts.medium.models import Article
+from src.scrapers.posts.medium.models import Article
 from src.ranker import PostRanker
 from .topics import match_to_topics
 
@@ -36,6 +36,7 @@ class MediumPostsCanonizer(CanonizerBase):
     def _canonize(self, article: Article) -> None:
         canonized_url = helpers.canonize_url(article.url)
         publish_timestamp = self._canonize_date(article.publish_date)
+        # TODO: fix parsed publish_date for articles from https://medium.com/google-cloud (`2 days ago` instead of date)
         topics = match_to_topics(article)
         raw_post = RawPost(
             canonized_url=canonized_url,

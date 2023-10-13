@@ -1,7 +1,7 @@
 from collections import defaultdict
 from typing import List
 from src.types.specialities import Speciality
-from src.crawler.posts.medium.models import Article
+from src.scrapers.posts.medium.models import Article
 
 
 TOPIC2TAGS = {

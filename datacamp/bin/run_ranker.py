@@ -40,7 +40,7 @@ def run_ranker(args):
         features = PostgresTable(conn, args.features)
         new_posts = PostgresTable(conn, '_tmp_new_posts')
         with OutputConsumer(connection=conn, table_name=new_posts.table_name, autocommit=True, truncate=True,
-                                 buffer_size=10, overflow_mode=BufferedConsumer.OverflowMode.PARENT_CLASS) as output_consumer, \
+                            buffer_size=10, overflow_mode=BufferedConsumer.OverflowMode.PARENT_CLASS) as output_consumer, \
                 LogsConsumer(connection=conn, table_name=args.logs, autocommit=True, truncate=True) as logs_consumer:
 
             ranker = PostRanker()
@@ -59,5 +59,11 @@ def run_ranker(args):
                 new_post.rank = rank
                 output_consumer.recv(new_post.dict())
 
-        new_posts.move(posts.table_name)
-        new_posts.commit()
+        # new_posts.move(posts.table_name)
+        with OutputConsumer(connection=conn, table_name=posts.table_name, autocommit=True, truncate=True,
+                            buffer_size=100, overflow_mode=BufferedConsumer.OverflowMode.PARENT_CLASS) as output_consumer, \
+                LogsConsumer(connection=conn, table_name=args.logs, autocommit=True, truncate=True) as logs_consumer:
+            for row in tqdm(new_posts.select(), desc='Update post ranks', total=new_posts.row_count(), position=0):
+                output_consumer.recv(row)
+        new_posts.drop()
+        posts.commit()

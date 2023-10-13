@@ -1,5 +1,5 @@
 import math
-from src.crawler.posts.habr.models import Article
+from src.scrapers.posts.habr.models import Article
 
 
 def calculate_rank(article: Article, views: int) -> int:

@@ -1,7 +1,7 @@
 from collections import defaultdict
 from typing import Iterable, Type
 from src.types.sources import SourceName
-from src.types.resources import ResourceName
+from src.types import ResourceName
 from .base import CanonizerBase
 
 

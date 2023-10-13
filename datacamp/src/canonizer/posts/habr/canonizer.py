@@ -4,10 +4,10 @@ from datetime import datetime
 from src.canonizer import helpers
 
 from src.types.sources import SourceName
-from src.types.resources import ResourceName
+from src.types import ResourceName
 from src.canonizer.base import CanonizerBase
 from src.controller.posts.model import RawPost, Post
-from src.crawler.posts.habr.models import Article
+from src.scrapers.posts.habr.models import Article
 from src.ranker import PostRanker
 from .topics import match_to_topics
 
