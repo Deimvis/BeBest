@@ -52,7 +52,7 @@
                 <a href="{% url 'posts:index' %}?speciality=frontend&box_animation=true" class="font-semibold hover:text-gray-500 {% if speciality == 'frontend' %}underline underline-offset-2{% endif %}">Frontend</a>
                 <a href="{% url 'posts:index' %}?speciality=backend&box_animation=true" class="font-semibold hover:text-gray-500 {% if speciality == 'backend' %}underline underline-offset-2{% endif %}">Backend</a>
                 <a href="{% url 'posts:index' %}?speciality=machine_learning&box_animation=true" class="font-semibold hover:text-gray-500 {% if speciality == 'machine_learning' %}underline underline-offset-2{% endif %}">ML</a>
-                <a href="{% url 'vacancies:index' %}?box_animation=true" class="font-semibold hover:text-gray-500">Vacancies</a>
+                <!-- <a href="{% url 'vacancies:index' %}?box_animation=true" class="font-semibold hover:text-gray-500">Vacancies</a> -->
 
                 {% if request.user.is_authenticated %}
                 {% else %}
