@@ -5,7 +5,7 @@ from typing import Dict
 
 from src.types import ResourceName
 from src.controller.base import ControllerBase
-from src.controller.posts.model import PostRecord
+from src.controller.posts.models import PostRecord
 
 
 class PostsController(ControllerBase):

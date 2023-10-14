@@ -1,0 +1,29 @@
+SELECT
+    *,
+    msg::json->'context'->>'article_url' AS article_url,
+    msg::json->'context' AS context,
+    msg::json->'error' AS error,
+    msg::json->'traceback' AS traceback
+FROM datacamp__canonize_post_medium_logs
+ORDER BY insert_timestamp desc
+LIMIT 3;
+
+SELECT
+    *,
+    msg::json->'context'->>'article_url' AS article_url,
+    msg::json->'context' AS context,
+    msg::json->'error' AS error,
+    msg::json->'traceback' AS traceback
+FROM datacamp__canonize_post_habr_logs
+ORDER BY insert_timestamp desc
+LIMIT 3;
+
+SELECT
+    *,
+    msg::json->'context'->>'article_url' AS article_url,
+    msg::json->'context' AS context,
+    msg::json->'error' AS error,
+    msg::json->'traceback' AS traceback
+FROM datacamp__canonize_post_distributed_computing_missings_logs
+ORDER BY insert_timestamp desc
+LIMIT 3;

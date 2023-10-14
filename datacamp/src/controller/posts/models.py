@@ -1,7 +1,7 @@
 import validators
 from datetime import datetime
 from pydantic import BaseModel, validator
-from typing import Dict, List
+from typing import Dict, List, Self
 from src.types.specialities import Speciality
 
 
@@ -12,8 +12,8 @@ class RawPost(BaseModel):
     topics: List[str]
     starting_text: str
     publish_timestamp: int
-    author_username: str | None
-    views: int | None
+    author_username: str | None = None
+    views: int | None = None
 
     @validator('canonized_url')
     def is_valid_canonized_url(cls, v):
@@ -57,6 +57,13 @@ class PostRecord(Post):
             'source_name': self.source_name,
             'canonized_url': self.canonized_url,
         }
+
+    def to_database_row(self) -> Dict:
+        return self.model_dump()
+
+    @staticmethod
+    def from_database_row(row: Dict) -> Self:
+        return PostRecord(**row)
 
     @staticmethod
     def create_table_query() -> str:

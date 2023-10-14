@@ -9,7 +9,7 @@ from src.types.sources import SourceName
 from src.types import ResourceName
 from src.types.specialities import Speciality
 from src.canonizer.base import CanonizerBase
-from src.controller.posts.model import RawPost, Post
+from src.controller.posts.models import RawPost, Post
 from src.scrapers.posts.distributed_computing_musings.models import Article
 from src.ranker import PostRanker
 

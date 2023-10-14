@@ -3,7 +3,7 @@ import random
 import time
 from typing import Dict
 from src.types.sources import SourceName
-from src.controller.posts.model import Post, PostRecord
+from src.controller.posts.models import Post, PostRecord
 
 
 class PostRanker:
@@ -57,7 +57,7 @@ class PostRanker:
         second_penalty = 22 * second_range
         third_range = max(days_left - 30, 0)
         third_penalty = 50 * third_range
-        return first_penalty + second_penalty + third_penalty
+        return int(first_penalty + second_penalty + third_penalty)
 
     def _views_bonus(self, views: int) -> int:
         """
@@ -65,4 +65,4 @@ class PostRanker:
         1k views:     bonus = 150
         100k views:   bonus = 250
         """
-        return 50 * math.log(views + 1, 10)
+        return int(50 * math.log(views + 1, 10))

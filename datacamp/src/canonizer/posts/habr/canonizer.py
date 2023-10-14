@@ -6,7 +6,7 @@ from src.canonizer import helpers
 from src.types.sources import SourceName
 from src.types import ResourceName
 from src.canonizer.base import CanonizerBase
-from src.controller.posts.model import RawPost, Post
+from src.controller.posts.models import RawPost, Post
 from src.scrapers.posts.habr.models import Article
 from src.ranker import PostRanker
 from .topics import match_to_topics
@@ -48,7 +48,7 @@ class HabrPostsCanonizer(CanonizerBase):
             views=views,
         )
         rank = self.post_ranker.raw_rank(raw_post, self.SOURCE_NAME)
-        post = Post(**(raw_post.dict() | dict(rank=rank)))
+        post = Post(**(raw_post.model_dump() | dict(rank=rank)))
         return post
 
     def _canonize_datetime(self, dt_str: str) -> int:

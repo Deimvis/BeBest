@@ -55,7 +55,7 @@ class DCMPostsScraper(ScraperBase):
         response = self.requester.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
         article = self._parse_article(soup, ctx)
-        self.write_output(article.json(ensure_ascii=False))
+        self.write_output(article.model_dump_json())
 
     def _parse_article(self, soup: BeautifulSoup, ctx: Dict) -> Article:
         parser = Parser(soup)

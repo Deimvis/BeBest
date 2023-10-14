@@ -8,7 +8,7 @@ from src.canonizer import helpers
 from src.types.sources import SourceName
 from src.types import ResourceName
 from src.canonizer.base import CanonizerBase
-from src.controller.posts.model import RawPost, Post
+from src.controller.posts.models import RawPost, Post
 from src.scrapers.posts.medium.models import Article
 from src.ranker import PostRanker
 from .topics import match_to_topics
@@ -48,8 +48,8 @@ class MediumPostsCanonizer(CanonizerBase):
             author_username=article.publisher,
         )
         rank = self.post_ranker.raw_rank(raw_post, self.SOURCE_NAME)
-        post = Post(**(raw_post.dict() | dict(rank=rank)))
-        self.write_output(post.dict())
+        post = Post(**(raw_post.model_dump() | dict(rank=rank)))
+        self.write_output(post.model_dump())
 
     def _canonize_date(self, date_str: str) -> int:
         date_str = date_str.strip()

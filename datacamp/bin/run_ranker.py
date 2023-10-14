@@ -3,7 +3,7 @@ from tqdm import tqdm
 from bin.postgres import PostgresConnection
 from lib.consumers import BufferedConsumer, PostgresConsumer
 from lib.storages.postgres.table import PostgresTable
-from src.controller.posts.model import PostRecord
+from src.controller.posts.models import PostRecord
 from src.ranker import PostRanker
 
 
@@ -55,9 +55,9 @@ def run_ranker(args):
                     case _:
                         raise RuntimeError(f'Invariant is broken, multiple features records found for post canonized url: {post.canonized_url}')
                 rank = ranker.rank(post, post_features)
-                new_post = post.copy(deep=True)
+                new_post = post.model_copy(deep=True)
                 new_post.rank = rank
-                output_consumer.recv(new_post.dict())
+                output_consumer.recv(new_post.model_dump())
 
         # new_posts.move(posts.table_name)
         with OutputConsumer(connection=conn, table_name=posts.table_name, autocommit=True, truncate=True,

@@ -85,6 +85,7 @@ def playground():
     from src.types import ResourceName
     from src.types.sources import SourceName
     from src.scrapers import scrapers_manager
+    # from src.ranker.post_ranker import PostRecord
 
     with PostgresConnection(
                 host=os.getenv('DB_HOST'),
@@ -93,12 +94,19 @@ def playground():
                 password=os.getenv('DB_PASSWORD'),
                 db_name=os.getenv('DB_NAME'),
             ) as conn:
-        with FileConsumer(file_path='out/out.txt') as output_consumer, \
-                FileConsumer(file_path='out/logs.txt') as logs_consumer:
-            Scraper = scrapers_manager.find_Scraper(ResourceName.POST, SourceName.HABR)
 
-            scraper = Scraper(output_consumer=output_consumer, logs_consumer=logs_consumer)
-            scraper.scrape()
+        from lib.storages.postgres.table import PostgresTable
+        table = PostgresTable(conn, 'datacamp_post')
+        for row in table.select():
+            d = {k: v for k, v in row.items()}
+            print(d)
+            break
+        # with FileConsumer(file_path='out/out.txt') as output_consumer, \
+        #         FileConsumer(file_path='out/logs.txt') as logs_consumer:
+        #     Scraper = scrapers_manager.find_Scraper(ResourceName.POST, SourceName.HABR)
+
+        #     scraper = Scraper(output_consumer=output_consumer, logs_consumer=logs_consumer)
+        #     scraper.scrape()
 
 
     # with Consumer(file_path='out/test.txt', buffer_size=3, overflow_mode=BufferedConsumer.OverflowMode.PARENT_CLASS) as consumer:

@@ -1,6 +1,6 @@
 from . import (  # noqa
     controller,
-    model,
+    models,
 )
 from .controller import PostsController  # noqa
-from .model import Post, PostRecord  # noqa
+from .models import Post, PostRecord  # noqa

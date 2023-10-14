@@ -32,11 +32,11 @@ class HabrPostsScraper(ScraperBase):
 
     def scrape(self, plan: HabrPostsScrapePlan) -> None:
         for hub in tqdm(plan.hubs, desc='Scraping habr hubs', total=len(plan.hubs), position=0):
-            self.scrape_hub(hub.url, ctx=hub.model_dump())
+            self.scrape_hub(hub.url, hub.page_count, ctx=hub.model_dump())
 
     @logging_on_call('Scrape hub: {url}', logging.DEBUG, logger=log_)
-    def scrape_hub(self, url, ctx: Dict):
-        for page_number in tqdm(range(1, 11), desc='Scraping habr posts pages', total=10, leave=False, position=1):
+    def scrape_hub(self, url: str, page_count: int, ctx: Dict):
+        for page_number in tqdm(range(1, 1+page_count), desc='Scraping habr posts pages', total=page_count, leave=False, position=1):
             hub_page_url = urljoin(url, f'page{page_number}')
             self.scrape_hub_page(hub_page_url, ctx)
 
@@ -45,29 +45,24 @@ class HabrPostsScraper(ScraperBase):
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
         for article_tag in soup.select('article'):
-            self.scrape_article(article_tag.select_one('a[class="tm-title__link"]')['href'], ctx)
+            self.scrape_article(HabrPostsScraper.HOST + article_tag.select_one('a[class="tm-title__link"]')['href'], ctx)
 
-    @logging_on_call('Scrape article: {article_path}', logging.DEBUG, logger=log_)
-    def scrape_article(self, article_path: str, ctx: Dict) -> None:
+    @logging_on_call('Scrape article: {url}', logging.DEBUG, logger=log_)
+    def scrape_article(self, url: str, ctx: Dict) -> None:
         try:
-            self._scrape_article(article_path, ctx)
+            self._scrape_article(url, ctx)
         except Exception as error:
             self.write_error(json.dumps({
                 'error': str(error),
                 'traceback': traceback.format_exc(),
-                'context': {'article_path': article_path},
+                'context': {'url': url},
             }))
 
-    def _scrape_article(self, article_path: str, ctx: Dict) -> None:
-        url = HabrPostsScraper.HOST + article_path
+    def _scrape_article(self, url: str, ctx: Dict) -> None:
         response = self.requester.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
         article = self._parse_article(soup, ctx)
         self.write_output(article.model_dump_json())
-        # TODO: remove
-        # article_tag = soup.select_one('article')
-        # article = Article.from_tag(article_tag, ctx={'url': url, 'response': response, 'soup': soup})
-        # self.write_output(article.model_dump_json())
 
     def _parse_article(self, soup: BeautifulSoup, ctx: Dict) -> Article:
         parser = HabrPostsParser(soup)
@@ -75,7 +70,6 @@ class HabrPostsScraper(ScraperBase):
         parsing_results = parser.GET_PARSING_RESULTS()
         article = Article(**(ctx | parsing_results))
         return article
-
 
     @classmethod
     def plan_type(cls):
