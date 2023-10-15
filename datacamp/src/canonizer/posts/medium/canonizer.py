@@ -1,8 +1,9 @@
 import json
+import logging
 import traceback
 import re
 import regex_spm
-from datetime import datetime
+from datetime import datetime, timedelta
 from src.canonizer import helpers
 
 from src.types.sources import SourceName
@@ -12,6 +13,9 @@ from src.controller.posts.models import RawPost, Post
 from src.scrapers.posts.medium.models import Article
 from src.ranker import PostRanker
 from .topics import match_to_topics
+
+
+log_ = logging.getLogger(__name__)
 
 
 class MediumPostsCanonizer(CanonizerBase):
@@ -64,6 +68,10 @@ class MediumPostsCanonizer(CanonizerBase):
                 dt = datetime.strptime(match_result.group('month'), '%b')
                 dt = dt.replace(day=int(match_result.group('day')))
                 dt = dt.replace(year=datetime.now().year)
+            case r'^[0-9]{1,2} days? ago$':
+                match_result = re.match(r'^(?P<days_ago>[0-9]{1,2}) days? ago$', date_str)
+                days_ago = int(match_result.group('days_ago'))
+                dt = datetime.now() - timedelta(days=days_ago)
             case _:
                 raise RuntimeError(f'Got unsupported date string format: {date_str}')
         return int(dt.timestamp())

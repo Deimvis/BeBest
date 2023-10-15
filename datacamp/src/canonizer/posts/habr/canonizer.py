@@ -24,7 +24,7 @@ class HabrPostsCanonizer(CanonizerBase):
         article = Article(**json.loads(data))
         try:
             post = self._canonize(article)
-            self.write_output(post.dict())
+            self.write_output(post.model_dump())
         except Exception as error:
             self.write_error(json.dumps({
                 'error': str(error),

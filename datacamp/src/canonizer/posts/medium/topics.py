@@ -1,3 +1,4 @@
+import logging
 from collections import defaultdict
 from typing import List
 from src.types.specialities import Speciality
@@ -14,6 +15,8 @@ TOPIC2TAGS = {
         'Software Architecture',
         'Data Engineering',
         'Data Pipeline',
+        'Bigquery',
+        'Data',
     },
     Speciality.DEVELOPMENT.FRONTEND: {
         'Frontend',
@@ -44,4 +47,6 @@ def match_to_topics(article: Article) -> List[str]:
     topics = set()
     for tag in article.tags:
         topics.update(TAG2TOPICS.get(tag, set()))
+    if len(article.tags) > 0 and len(topics) == 0:
+        logging.info(f'No topics found for non-empty article tag list: {article.tags}')
     return list(sorted(topics))

@@ -40,3 +40,4 @@ def run_store(args):
             input_table = PostgresTable(conn, args.input)
             for row in input_table.select():
                 controller.store(row)
+        storage.commit()

@@ -13,7 +13,7 @@ from src.types import ResourceName, SourceName
 from src.scrapers.base import ScraperBase
 from src.scrapers.plan_base import ScrapePlanBase
 from .models import Article
-from .parser import ArticleParser
+from .parser import MediumArticleParser
 from .plan import MediumPostsScrapePlan
 
 
@@ -35,7 +35,7 @@ class MediumPostsScraper(ScraperBase):
         super().__init__(*args, **kwargs)
 
     def scrape(self, plan: MediumPostsScrapePlan) -> None:
-        for blog in plan.blogs:
+        for blog in tqdm(plan.blogs, desc='Scraping blogs', total=len(plan.blogs), position=0, leave=True):
             self.scrape_blog(blog.url, ctx=blog.model_dump())
 
     @logging_on_call('Scrape blog: {url}', logging.DEBUG, logger=log_)
@@ -63,7 +63,9 @@ class MediumPostsScraper(ScraperBase):
                 None,
             ))
             article_soup = BeautifulSoup(self.requester.get(normalized_article_url).text, 'html.parser')
-            if len(article_soup.select('h1[data-testid="storyTitle"]')) == 1:
+            is_article = len(article_soup.select('h1[data-testid="storyTitle"]')) == 1
+            is_free = 'Member-only story' not in article_soup.text
+            if is_article and is_free:
                 self.scrape_article(normalized_article_url, ctx)
 
     @logging_on_call('Scrape article: {url}', logging.DEBUG, logger=log_)
@@ -85,7 +87,7 @@ class MediumPostsScraper(ScraperBase):
         self.write_output(article.model_dump_json())
 
     def _parse_article(self, soup: BeautifulSoup, ctx: Dict) -> Article:
-        parser = ArticleParser(soup)
+        parser = MediumArticleParser(soup)
         parser.TRY_PARSE_EVERYTHING()
         parsing_results = parser.GET_PARSING_RESULTS()
         article = Article(**(ctx | parsing_results))

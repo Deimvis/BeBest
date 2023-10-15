@@ -32,7 +32,7 @@ class HabrPostsScraper(ScraperBase):
 
     def scrape(self, plan: HabrPostsScrapePlan) -> None:
         for hub in tqdm(plan.hubs, desc='Scraping habr hubs', total=len(plan.hubs), position=0):
-            self.scrape_hub(hub.url, hub.page_count, ctx=hub.model_dump())
+            self.scrape_hub(hub.url, hub.page_count, ctx={'hubs': [hub.hub_name] if hub.hub_name else []})
 
     @logging_on_call('Scrape hub: {url}', logging.DEBUG, logger=log_)
     def scrape_hub(self, url: str, page_count: int, ctx: Dict):
@@ -59,6 +59,7 @@ class HabrPostsScraper(ScraperBase):
             }))
 
     def _scrape_article(self, url: str, ctx: Dict) -> None:
+        ctx['url'] = url
         response = self.requester.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
         article = self._parse_article(soup, ctx)

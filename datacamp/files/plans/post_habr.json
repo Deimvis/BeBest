@@ -1,8 +1,8 @@
 {
     "hubs": [
         {"url": "https://habr.com/ru/hub/programming/"},
-        {"url": "https://habr.com/ru/hub/python/", "hubs": ["Python *"]},
-        {"url": "https://habr.com/ru/hub/machine_learning/", "hubs": ["Машинное обучение *"]},
+        {"url": "https://habr.com/ru/hub/python/", "hub_name": "Python *"},
+        {"url": "https://habr.com/ru/hub/machine_learning/", "hub_name": "Машинное обучение *"},
         {"url": "https://habr.com/ru/hub/api/"}
     ]
 }

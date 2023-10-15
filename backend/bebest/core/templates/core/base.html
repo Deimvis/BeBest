@@ -47,6 +47,7 @@
                     Be the Best
                 </span>
             </a>
+            <!-- exp: {% if request.user.is_authenticated %}mr-6{% endif %} -->
             <div class="space-x-4 sm:space-x-4 lg:space-x-6 text-md sm:text-md lg:text-lg">
 
                 <a href="{% url 'posts:index' %}?speciality=frontend&box_animation=true" class="font-semibold hover:text-gray-500 {% if speciality == 'frontend' %}underline underline-offset-2{% endif %}">Frontend</a>
