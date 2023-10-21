@@ -26,8 +26,8 @@ class MediumPostsScraper(ScraperBase):
 
     def __init__(self, *args, **kwargs):
         proxies = {
-            'http': os.getenv('HTTP_PROXY'),
-            'https': os.getenv('HTTPS_PROXY'),
+            'http': os.getenv('REQUESTS_HTTP_PROXY'),
+            'https': os.getenv('REQUESTS_HTTPS_PROXY'),
         }
         requester_ = lib.requesters.DefaultRequester(max_rps=1, proxies=proxies)
         cache_ = lib.storages.cache.LRUCache(max_size=32)

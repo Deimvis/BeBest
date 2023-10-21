@@ -44,7 +44,7 @@ class TestMediumArticleParser(unittest.TestCase):
     @classmethod
     def _get_soup(cls, url):
         proxies = {
-            'http': os.getenv('HTTP_PROXY'),
-            'https': os.getenv('HTTPS_PROXY'),
+            'http': os.getenv('REQUESTS_HTTP_PROXY'),
+            'https': os.getenv('REQUESTS_HTTPS_PROXY'),
         }
         return BeautifulSoup(requests.get(url, proxies=proxies).text, 'html.parser')
