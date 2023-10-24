@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+import logging
+import telebot
+import subprocess
+import sys
+
+MAX_TG_MESSAGE_LENGTH = 4096
+TG_CHAT_ID = 985815129
+TG_BOT_TOKEN = '6335357437:AAF2y5o_CpxDvm61DzOfMx-Dj1j8AtLQUhY'
+TG_BOT = telebot.TeleBot(TG_BOT_TOKEN)
+
+
+def send_long_message(bot: telebot.TeleBot, chat_id: int, msg_text: str, chunk_size=MAX_TG_MESSAGE_LENGTH, **send_message_kwargs):
+    for chunk_start_ind in range(0, len(msg_text), chunk_size):
+        chunk_end_ind = min(chunk_start_ind + chunk_size, len(msg_text))
+        chunk_text = msg_text[chunk_start_ind:chunk_end_ind]
+        bot.send_message(chat_id, chunk_text, **send_message_kwargs)
+
+
+def send_notifications(level: int, message: str):
+    text = f'<b>{logging.getLevelName(level)}</b>\n{message}'
+    send_long_message(TG_BOT, TG_CHAT_ID, text, parse_mode='HTML')
+
+
+def main():
+    if len(sys.argv) <= 1:
+        print('Usage: ./alert_wrapper <command> [args...]')
+        sys.exit(1)
+
+    command = sys.argv[1]
+    args = sys.argv[2:]
+    try:
+        subprocess.run([command] + args, check=True)
+    except subprocess.CalledProcessError as error:
+        cmd_line = ' '.join(sys.argv[1:])
+        send_notifications(logging.ERROR, f'{cmd_line}\n{error}')
+    except Exception as error:
+        cmd_line = ' '.join(sys.argv[1:])
+        send_notifications(logging.ERROR, f'{cmd_line}\n{error}')
+
+
+if __name__ == '__main__':
+    main()

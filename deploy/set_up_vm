@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -ex
+
+TARGET_HOST=${1:-ya_cloud_bebest}
+
+ssh $TARGET_HOST "sudo apt update -y"
+ssh $TARGET_HOST "sudo apt install python3.11 -y"
+ssh $TARGET_HOST "sudo apt install python3-pip -y"
+ssh $TARGET_HOST "sudo pip install pyTelegramBotAPI"
+
+# TODO: crontab
