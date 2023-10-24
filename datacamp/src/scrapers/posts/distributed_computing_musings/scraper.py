@@ -25,7 +25,8 @@ class DCMPostsScraper(ScraperBase):
     ARTICLES_ENDPOINT_PATTERN = 'https://distributed-computing-musings.com/page/{page_number}/'
 
     def __init__(self, *args, **kwargs):
-        self.requester = lib.requesters.DefaultRequester()
+        headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36', 'whoami': 'https://bebest.pro/'}
+        self.requester = lib.requesters.DefaultRequester(headers=headers)
         super().__init__(*args, **kwargs)
 
     def scrape(self, plan: DCMPostsScrapePlan) -> None:
@@ -33,6 +34,8 @@ class DCMPostsScraper(ScraperBase):
             self.scrape_articles_page(page_number, {})
 
     def scrape_articles_page(self, page_number: int, ctx: Dict):
+        import logging
+        logging.error('get url %s', self.ARTICLES_ENDPOINT_PATTERN.format(**dict(page_number=page_number)))
         response = self.requester.get(self.ARTICLES_ENDPOINT_PATTERN.format(**dict(page_number=page_number)))
         soup = BeautifulSoup(response.text, 'html.parser')
         for article in tqdm(soup.select('article[id]'), desc='Scraping distributed-computing-musings posts', leave=False, position=1):
