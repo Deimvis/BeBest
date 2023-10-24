@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -ex
+
+./scripts/run_pipeline post habr
+./scripts/run_pipeline post medium
+./scripts/run_pipeline post distributed_computing_musings
