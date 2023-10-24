@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -ex
+
+sudo docker-compose -f /home/dbrusenin/bebest/docker-compose.yaml run --rm --entrypoint "scripts/run_all_pipelines" datacamp
