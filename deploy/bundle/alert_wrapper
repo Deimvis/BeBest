@@ -31,6 +31,8 @@ def main():
     args = sys.argv[2:]
     try:
         subprocess.run([command] + args, check=True)
+    except KeyboardInterrupt:
+        pass
     except subprocess.CalledProcessError as error:
         cmd_line = ' '.join(sys.argv[1:])
         send_notifications(logging.ERROR, f'{cmd_line}\n{error}')
