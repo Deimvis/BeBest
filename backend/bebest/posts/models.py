@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 class Post(models.Model):
     class SourceName(models.TextChoices):
         HABR = 'habr'
+        HACKERNOON = 'hackernoon'
         MEDIUM = 'medium'
         DCM = 'distributed_computing_musings'
 

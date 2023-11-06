@@ -7,19 +7,15 @@ from typing import Dict, Type
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
-# from selenium.webdriver.common.by import By
-# from selenium.webdriver.support.wait import WebDriverWait
 
 import lib
 from lib.utils.logging import logging_on_call
 from src.types import ResourceName, SourceName
 from src.scrapers.base import ScraperBase
 from src.scrapers.plan_base import ScrapePlanBase
-# from .chrome_driver import chrome_driver
 from .models import Article
 from .parser import HackernoonArticleParser
 from .plan import HackernoonPostsScrapePlan
-# from .utils import update_url_params
 
 
 log_ = logging.getLogger(__name__)
@@ -36,9 +32,7 @@ class HackernoonPostsScraper(ScraperBase):
             'http': os.getenv('REQUESTS_HTTP_PROXY'),
             'https': os.getenv('REQUESTS_HTTPS_PROXY'),
         }
-        requester_ = lib.requesters.DefaultRequester(max_rps=1, proxies=proxies)
-        cache_ = lib.storages.cache.LRUCache(max_size=32)
-        self.requester = lib.requesters.CachedRequester(requester=requester_, cache=cache_)
+        self.requester = lib.requesters.DefaultRequester(max_rps=1, proxies=proxies)
         # self.chrome_driver = None  # NOTE: see note below
         super().__init__(*args, **kwargs)
 
@@ -148,6 +142,7 @@ class HackernoonPostsScraper(ScraperBase):
             'sec-ch-ua': '"Chromium";v="118", "Google Chrome";v="118", "Not=A?Brand";v="99"',
             'sec-ch-ua-mobile': '?0',
             'sec-ch-ua-platform': '"macOS"',
+            # '__whoami': 'https://bebest.pro/',  # TODO: test
         }
         data = json.dumps({
             "requests": [

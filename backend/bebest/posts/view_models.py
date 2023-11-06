@@ -21,6 +21,8 @@ class PostView:
         match self.source_name:
             case Post.SourceName.HABR:
                 return 'Habr'
+            case Post.SourceName.HACKERNOON:
+                return 'Hackernoon'
             case Post.SourceName.MEDIUM:
                 return 'Medium'
             case Post.SourceName.DCM:
