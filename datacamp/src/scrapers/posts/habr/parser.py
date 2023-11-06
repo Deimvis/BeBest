@@ -17,7 +17,7 @@ class HabrPostsParser(ParserBase, metaclass=ParserBaserMeta):
         return self.article_tag.select_one('[class="tm-icon-counter__value"]').text.strip()
 
     def parse_starting_text(self):
-        return self.article_tag.select_one('[id="post-content-body"]').text.strip()[:1024]
+        return self.article_tag.select_one('[id="post-content-body"]').text.strip()[:64]
 
     def parse_reading_time(self):
         return self.article_tag.select_one('span[class="tm-article-reading-time__label"]').text.strip()

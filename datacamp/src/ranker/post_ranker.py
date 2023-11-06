@@ -18,6 +18,8 @@ class PostRanker:
             case SourceName.HABR:
                 # boost for diversity
                 initial_rank = 100
+            case SourceName.HACKERNOON:
+                initial_rank = 700
             case SourceName.MEDIUM:
                 # initial_rank = 500
                 # boost for diversity

@@ -15,6 +15,11 @@
         "note": "https://distributed-computing-musings.com/"
     },
     {
+        "code": "HACKERNOON",
+        "source_name": "hackernoon",
+        "note": "https://hackernoon.com/"
+    },
+    {
         "code": "HH_API",
         "source_name": "hh_api",
         "note": "https://api.hh.ru/"

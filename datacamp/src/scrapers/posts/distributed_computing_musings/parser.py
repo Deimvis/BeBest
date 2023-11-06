@@ -13,4 +13,4 @@ class Parser(ParserBase, metaclass=ParserBaserMeta):
         return [tag.text for tag in self.soup.select('div[class="entry-container"] [class="post-categories"] li')]
 
     def parse_starting_text(self):
-        return self.soup.select('div[class="entry-container"] [class="entry-content"]')[0].text.strip()[:1024]
+        return self.soup.select('div[class="entry-container"] [class="entry-content"]')[0].text.strip()[:64]

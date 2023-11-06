@@ -22,6 +22,8 @@ else:
         format='[%(asctime)s] %(levelname)s [%(name)s] %(message)s',
         datefmt="%d/%b/%Y %H:%M:%S",
     )
+logging.getLogger('selenium.webdriver.remote.remote_connection').setLevel(logging.WARNING)
+logging.getLogger('seleniumwire').setLevel(logging.ERROR)
 
 
 def parse_args():
