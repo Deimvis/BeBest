@@ -1,6 +1,6 @@
 # BeBest
 
-_— Aggregator of best tech blogs for IT professionals_<br>
+_— Aggregator of best tech blogs for IT engineers_<br>
 _(Django Web Server)_<br>
 Website: [bebest.pro](https://bebest.pro/)
 
