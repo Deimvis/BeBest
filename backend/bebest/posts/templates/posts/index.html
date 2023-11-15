@@ -8,6 +8,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 {% endblock %}
 
+{% block styles %}
+<style>
+    .post-card:hover {
+        transform: scale(1.02);
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="min-h-screen {% if request.GET.box_animation %}fade_appear{% endif %}">
     <div class="mt-6 px-6 py-8 bg-slate-50 rounded-xl border-2 border-rose-600/50">
@@ -32,7 +40,7 @@
         <div class = "grid grid-cols-3 gap-y-6 gap-x-2 fade_appear">
             {% for post in posts %}
                 <a href="{% url 'log_proxy:redirect' %}?next={{ post.canonized_url|urlencode }}" target="_blank">
-                    <div class="h-40 p-4 pb-3 lg:p-6 lg:pb-6 border border-slate-100 bg-white rounded-xl shadow-none transition-shadow duration-100 ease-in-out hover:shadow-lg hover:shadow-black/5">
+                    <div class="post-card h-40 p-4 pb-3 lg:p-6 lg:pb-6 border border-slate-100 bg-white rounded-xl shadow-none transition-shadow duration-100 ease-in-out hover:shadow-lg hover:shadow-black/5">
                         <div class="h-3/4 w-full flex items-center justify-center">
                             <h2 class="text-lg lg:text-xl text-center line-clamp-3" style="font-family: 'Roboto', sans-serif; font-weight: 300;">{{ post.title }}</h2>
                         </div>
