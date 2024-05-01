@@ -3,3 +3,4 @@
 set -e
 
 sudo docker-compose -f /home/dbrusenin/bebest/docker-compose.yaml run --rm certbot renew
+sudo docker-compose -f /home/dbrusenin/bebest/docker-compose.yaml restart nginx backend

@@ -6,7 +6,7 @@ TARGET_HOST=${1:-ya_cloud_bebest}
 REMOTE_WORKDIR=${2:-/home/dbrusenin/bebest}
 
 REQUIRED_FILES=( ".env.prod" "datacamp/.env.prod" "backend/.env.prod" )
-for $file in "${REQUIRED_FILES[@]}"
+for file in "${REQUIRED_FILES[@]}"
 do
     if [ ! -f $file ]; then
         echo "Required file $file doesn't exist"
