@@ -52,4 +52,4 @@ MAILTO=star_maps@mail.ru
 
 ### world_bot
 # daily restart
-0 0 * * * /home/dbrusenin/bebest/renew_ssl_fast && /home/dbrusenin/world_bot/down && /home/dbrusenin/world_bot/up
+0 0 * * * /home/dbrusenin/bebest/renew_ssl && /home/dbrusenin/world_bot/down && /home/dbrusenin/world_bot/up
