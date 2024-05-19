@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# REMINDER: Add static into apps (modules): e.g. core/static/...
+#           After that use this script so Django collects all static
+#           into single directory
+
+# NOTE: Dockerfile collects static automatically in build stage
+
+./scripts/manage collectstatic --noinput

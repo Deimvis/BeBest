@@ -1,0 +1,103 @@
+.clickable-image,
+.clickable-image-with-border {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.clickable-image:hover,
+.clickable-image-with-border:hover {
+    transform: scale(1.05);
+}
+
+.clickable-image-with-border:hover {
+    border: 2px solid #007bff;
+}
+
+/*** FADE ANIMATION ***/
+
+@keyframes fade-animation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes delayed-fade-animation {
+    0% {
+        opacity: 0;
+    }
+    85% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.fade-appear-fast {
+    animation: fade-animation 0.5s ease-out;
+}
+
+.fade-appear {
+    animation: fade-animation 0.75s ease-out;
+}
+
+.fade-appear-slow {
+    animation: fade-animation 1.5s ease-out;
+}
+
+.delayed-fade-appear-normal-after-3s {
+    animation: delayed-fade-animation 4.5s ease-out
+}
+
+
+/*** TYPEWRITER EFFECT ***/
+
+/* The typing effect */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: orange; }
+}
+
+.typewriter {
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid orange; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    /*letter-spacing: .15em; /* Adjust as needed */
+    animation: 
+        typing 3s steps(50, end),
+        blink-caret .75s step-end infinite; 
+}
+
+/*** SMALL SCREEN OVERRIDES ***/
+
+@media screen and (max-width: 1000px) {
+
+.typewriter {
+    white-space: normal;
+    animation: none;
+}
+
+.delayed-fade-appear-normal-after-3s {
+    animation: fade-animation 1s ease-out;
+}
+
+.cta {
+    font-size: 20px !important;
+}
+.cta svg {
+    width: 33px !important;
+    height: 22px !important;
+}
+
+}

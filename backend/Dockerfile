@@ -11,5 +11,7 @@ COPY scripts/entrypoint /entrypoint
 
 ENV PYTHONUNBUFFERED=1
 
+RUN python /bebest/manage.py collectstatic --noinput
+
 ENTRYPOINT ["/entrypoint"]
 CMD ["--bind", "0.0.0.0:8000"]

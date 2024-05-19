@@ -9,8 +9,7 @@ from .forms import SignupForm, LoginForm
 
 
 def index(request):
-    most_ranked_posts = Post.objects.order_by('-rank')[:10]
-    return render(request, 'core/index.html', dict(posts=most_ranked_posts))
+    return render(request, 'core/index.html')
 
 
 def contact(request):
