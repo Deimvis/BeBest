@@ -6,12 +6,24 @@ TARGET_HOST=${1:-ya_cloud_bebest}
 REMOTE_WORKDIR=${2:-/home/dbrusenin/bebest}
 DEPLOY_BUNDLE_DIR=${3:-./deploy/bundle}
 
-docker-compose -f docker-compose.prod.yaml build
-docker-compose -f docker-compose.prod.yaml push
+# docker-compose -f docker-compose.prod.yaml build
+# docker-compose -f docker-compose.prod.yaml push
 
-./deploy/make_deploy_docker_compose docker-compose.prod.yaml $DEPLOY_BUNDLE_DIR/docker-compose.yaml
-scp -r $DEPLOY_BUNDLE_DIR/* $TARGET_HOST:~/bebest
-rm $DEPLOY_BUNDLE_DIR/docker-compose.yaml
+# ./deploy/make_deploy_docker_compose docker-compose.prod.yaml $DEPLOY_BUNDLE_DIR/docker-compose.yaml
+# scp -r $DEPLOY_BUNDLE_DIR/* $TARGET_HOST:~/bebest
+# rm $DEPLOY_BUNDLE_DIR/docker-compose.yaml
+
+# setup vm
+set +x
+export DTOOLS="$(dirname "${BASH_SOURCE[0]}")/_DTOOLS"
+source $DTOOLS/lib/shortcuts
+export SSH_HOST=ya_cloud_bebest
+export SSH_USER=dbrusenin
+export SSH_PKEY=~/.ssh/bebest_yacloud
+
+# SSHf DR_UPDATE_MIRROR "https://mirror.gcr.io/"
+DR_YANDEX_AUTH "secrets/yc_key.json"
+set -x
 
 ssh $TARGET_HOST "$REMOTE_WORKDIR/pull"
 ssh $TARGET_HOST "$REMOTE_WORKDIR/down"

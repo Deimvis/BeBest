@@ -4,7 +4,7 @@ services:
 
   datacamp:
     platform: linux/x86_64
-    image: deimvis/bebest-datacamp:latest
+    image: cr.yandex/crparlvq5pji2gn67f8s/bebest_datacamp:latest
     build: datacamp
     container_name: datacamp
     env_file:
@@ -14,7 +14,7 @@ services:
 
   backend:
     platform: linux/x86_64
-    image: deimvis/bebest-backend:latest
+    image: cr.yandex/crparlvq5pji2gn67f8s/bebest_backend:latest
     build: backend
     container_name: backend
     command: ["--bind", "0.0.0.0:8000"]
@@ -42,7 +42,7 @@ services:
 
   nginx:
     platform: linux/x86_64
-    image: deimvis/bebest-nginx:latest
+    image: cr.yandex/crparlvq5pji2gn67f8s/bebest_nginx:latest
     build: nginx
     container_name: nginx
     volumes:

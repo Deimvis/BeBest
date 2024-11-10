@@ -1,3 +1,6 @@
 [submodule "Python-Shared-Library"]
 	path = datacamp/lib
 	url = https://github.com/Deimvis/Python-Shared-Library.git
+[submodule "deploy/DTOOLS"]
+	path = deploy/_DTOOLS
+	url = https://github.com/Deimvis/_DTOOLS
