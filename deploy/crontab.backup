@@ -49,7 +49,9 @@ MAILTO=star_maps@mail.ru
 0 1 * * * /home/dbrusenin/bebest/alert_wrapper /home/dbrusenin/bebest/export_posts
 0 1 * * * /home/dbrusenin/bebest/alert_wrapper /home/dbrusenin/bebest/export_vacancy_stats
 
+# ssl
+0 0 */14 * * /home/dbrusenin/bebest/alert_wrapper /home/dbrusenin/bebest/renew_ssl
 
 ### world_bot
 # daily restart
-0 0 * * * /home/dbrusenin/bebest/renew_ssl && /home/dbrusenin/world_bot/down && /home/dbrusenin/world_bot/up
+0 0 * * * /home/dbrusenin/bebest/alert_wrapper /home/dbrusenin/world_bot/down && //home/dbrusenin/bebest/alert_wrapper /home/dbrusenin/world_bot/up
