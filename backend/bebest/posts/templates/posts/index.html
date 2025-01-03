@@ -39,7 +39,8 @@
         </div>
         <div class = "grid sm:grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-4 fade-appear-fast">
             {% for post in posts %}
-                <a href="{% url 'log_proxy:redirect' %}?next={{ post.canonized_url|urlencode }}" target="_blank">
+                <!-- <a href="{% url 'log_proxy:redirect' %}?next={{ post.canonized_url|urlencode }}" target="_blank"> -->
+                <a href="{{ post.canonized_url }}" target="_blank">
                     <div class="post-card h-40 p-4 pb-3 lg:p-6 lg:pb-6 border border-slate-100 bg-white rounded-xl shadow-none transition-shadow duration-100 ease-in-out hover:shadow-lg hover:shadow-black/5">
                         <div class="h-3/4 w-full flex items-center justify-center">
                             <h2 class="text-lg lg:text-xl text-center line-clamp-3" style="font-family: 'Roboto', sans-serif; font-weight: 300;">{{ post.title }}</h2>
